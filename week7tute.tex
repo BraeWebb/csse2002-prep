@@ -1,0 +1,257 @@
+\documentclass[12]{beamer}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage[obeyspaces]{url}
+\usepackage{listings}
+\lstnewenvironment{python}{\lstset{language=python}}{}
+\lstnewenvironment{java}{\lstset{style=customjava,language=java}}{}
+
+\lstdefinestyle{customjava}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  language=java,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\setbeamertemplate{frame numbering}[fraction]
+\usefonttheme{metropolis}
+\usecolortheme{spruce}
+\setbeamercolor{background canvas}{bg=white}
+
+\definecolor{mygreen}{rgb}{125, 5, 25}
+\usecolortheme[named=mygreen]{structure}
+
+
+
+\title{Assignment One Review}
+\author{Brae}
+%\institute{ajou university.}
+\institute {CSSE2002: Programming in the Large}
+
+\setbeamercovered{transparent=5}
+
+
+\begin{document}
+\metroset{block=fill}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Abstract Thing} \vspace{4pt}
+The JavaDocs specified that the \texttt{Thing} class was an abstract class.
+
+\begin{java}
+public class Thing {
+	...
+}
+
+public abstract class Thing {
+	...
+}
+\end{java}
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Code Duplication} \vspace{4pt}
+Code duplication for replacing strings.
+
+\begin{onlyenv}<2>
+\textbf{Don't do this}
+\begin{java}
+public Thing(String shortDescription, String longDescription) {
+    this.shortDescription = shortDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
+    this.longDescription = longDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
+}
+
+protected void setShort(String shortDescription) {
+    this.shortDescription = shortDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
+}
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+Abstract away repeated code
+\begin{java}
+public Thing(String shortDescription, String longDescription) {
+    this.shortDescription = replaceDescription(shortDescription);
+    this.longDescription = replaceDescription(longDescription);
+}
+
+private String replaceDescrition(String description) {
+    return description.replace('\n', '*')
+            .replace(';', '*')
+            .replace('\r', '*');
+}
+\end{java}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Member Duplication} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class Explorer extends Thing implements Mob {
+
+    private String shortDescription;
+    private String longDescription;
+
+    public Explorer(String shortDescription, String longDescription, int health) {
+        super(shortDescription, longDescription);
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        ...
+    }
+}
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+\begin{java}
+public class Explorer extends Thing implements Mob {
+
+    public Explorer(String shortDescription, String longDescription, int health) {
+        super(shortDescription, longDescription);
+        ...
+    }
+}
+\end{java}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - String Comparison} \vspace{4pt}
+
+Strings need to be compared using the .equals method not the comparison operator.
+
+\begin{java}
+String first = "hello";
+String second = "hello";
+
+if (first == second) {} // wrong
+if (first.equals(second)) {} // right
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
+Horizontal space is required on both sides of any binary or ternary operator.
+
+Separate any reserved word, such as if, for or catch, from an open parenthesis (() that follows it on that line.
+
+\begin{java}
+if (x) {} // right
+if(x){} //wrong
+if (x){} //wrong
+if(x) {} //wrong
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
+
+\begin{block}{Name Case}
+\textbf{Variable names} should be in camelCase\\
+\textbf{Class names} should be in PascalCase\\
+\textbf{Constants} should be in \verb|SCREAMING_SNAKE_CASE|\\
+\textbf{Method names} should be in camelCase\\[10pt]
+\end{block}
+
+\begin{onlyenv}<2->
+\begin{java}
+public class MyClassName {
+	private static final int MAX_SCORE = 1000;
+	private int bestScore = 0;
+
+	public int getBestScore() {
+		int myScore = 1;
+		return myScore;
+	}
+}
+\end{java}
+\end{onlyenv}
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
+
+There is no line break after a curly brace if it is followed
+by else or a comma.
+
+\textbf{Wrong}
+\begin{java}
+if (x) {
+  
+}
+else {
+  
+}
+\end{java}
+
+\textbf{Right}
+\begin{java}
+if (x) {
+  
+} else {
+  
+}
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
+
+One line if statements
+
+\begin{java}
+if (x) { return y; }
+\end{java}
+
+Braces are used with if, else, for, do and while statements,
+even when the body is empty or contains only a single statement.
+
+\begin{java}
+if (x) return y;
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Commenting} \vspace{4pt}
+
+\textbf{Class Comments}
+Used at the top of every file. Explains important details about the class.
+
+\begin{java}
+/*
+ * An exception which is thrown when the programmer becomes unhappy
+ */
+ public class UnhappyProgrammerException extends Exception {
+
+ }
+\end{java}
+
+\textbf{Inline Comments}
+Used when code is not immediantly obvious.
+
+\begin{java}
+// subtracts one from all elements in the array
+for (int i = 0; i < numbers.length; i++) {
+    numbers[i] = numbers[i] - 1;
+}
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Common Mistakes - Commenting} \vspace{4pt}
+
+\textbf{Method Comments}
+Used to explain the purpose of a method. In assignment two you will
+be using JavaDcos comments for methods.
+
+\end{frame}
+
+\end{document}
