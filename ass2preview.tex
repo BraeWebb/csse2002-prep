@@ -1,7 +1,6 @@
 \documentclass[12]{beamer}
 \usepackage{multicol}
 \usepackage{enumitem}
-\usepackage[obeyspaces]{url}
 \usepackage{listings}
 \lstnewenvironment{python}{\lstset{language=python}}{}
 \lstnewenvironment{java}{\lstset{style=customjava,language=java}}{}
@@ -110,113 +109,6 @@ public class NullRoomException extends CrawlException {}
 \end{java}
 
 There is no need to add a constructor or any extra methods to exceptions.
-
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - Abstract Thing} \vspace{4pt}
-The JavaDocs specified that the \texttt{Thing} class was an abstract class.
-
-\begin{java}
-public class Thing {
-	...
-}
-
-public abstract class Thing {
-	...
-}
-\end{java}
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - Code Duplication} \vspace{4pt}
-Code duplication for replacing strings.
-
-\begin{onlyenv}<2>
-\textbf{Don't do this}
-\begin{java}
-public Thing(String shortDescription, String longDescription) {
-    this.shortDescription = shortDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
-    this.longDescription = longDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
-}
-
-protected void setShort(String shortDescription) {
-    this.shortDescription = shortDescription.replace('\n', '*').replace(';', '*').replace('\r', '*');
-}
-\end{java}
-\end{onlyenv}
-
-\begin{onlyenv}<3>
-Abstract away repeated code
-\begin{java}
-public Thing(String shortDescription, String longDescription) {
-    this.shortDescription = replaceDescription(shortDescription);
-    this.longDescription = replaceDescription(shortDescription);
-}
-
-private String replaceDescrition(String description) {
-    return description.replace('\n', '*')
-            .replace(';', '*')
-            .replace('\r', '*');
-}
-\end{java}
-\end{onlyenv}
-
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - String Comparison} \vspace{4pt}
-
-Strings need to be compared using the .equals method not the comparison operator.
-
-\begin{java}
-String first = "hello";
-String second = "hello";
-
-if (first == second) {} // wrong
-if (first.equals(second)) {} // right
-\end{java}
-
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
-Horizontal space is required on both sides of any binary or ternary operator.
-
-Separate any reserved word, such as if, for or catch, from an open parenthesis (() that follows it on that line.
-
-\begin{java}
-if (x) {} // right
-if(x){} //wrong
-if (x){} //wrong
-if(x) {} //wrong
-\end{java}
-
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
-
-\begin{block}{Name Case}
-\textbf{Variable names} should be in camelCase\\
-\textbf{Class names} should be in PascalCase\\
-\textbf{Constants} should be in \verb|SCREAMING_SNAKE_CASE|\\
-\textbf{Method names} should be in camelCase\\[10pt]
-\end{block}
-
-\begin{onlyenv}<2->
-\begin{java}
-public class MyClassName {
-	private static final int MAX_SCORE = 1000;
-	private int bestScore = 0;
-
-	public int getBestScore() {
-		int myScore = 1;
-		return myScore;
-	}
-}
-\end{java}
-\end{onlyenv}
-\end{frame}
-
-\begin{frame}[t, fragile]{Common Mistakes - Style} \vspace{4pt}
-
-More on style in your tutorials...
 
 \end{frame}
 
