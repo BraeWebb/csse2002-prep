@@ -1,0 +1,281 @@
+\documentclass[12]{beamer}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage[obeyspaces]{url}
+\usepackage{listings}
+\lstnewenvironment{python}{\lstset{language=python}}{}
+\lstnewenvironment{java}{\lstset{style=customjava,language=java}}{}
+\lstnewenvironment{javaxs}{\lstset{basicstyle=\tiny,style=customjava,language=java}}{}
+
+\lstdefinestyle{customjava}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  language=java,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\setbeamertemplate{frame numbering}[fraction]
+\usefonttheme{metropolis}
+\usecolortheme{spruce}
+\setbeamercolor{background canvas}{bg=white}
+
+\definecolor{mygreen}{rgb}{125, 5, 25}
+\usecolortheme[named=mygreen]{structure}
+
+
+
+\title{Week 10 Tutorial}
+\author{Brae}
+\institute {CSSE2002: Programming in the Large}
+
+\setbeamercovered{transparent=5}
+
+
+\begin{document}
+\metroset{block=fill}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}[t, fragile]{Question One} \vspace{4pt}
+
+\begin{java}
+public void f(int arr[]) {
+    int total=0;
+    for (int i=0;i<arr.length;++i) {
+        total+=arr[i];
+        i++;
+    }
+    System.out.println(total);
+}
+\end{java}
+What would be output to the terminal if f was called with the array \{1,2,3,3,5,6,7\}?
+
+\begin{onlyenv}<2>
+\textbf{Note:} Terminal means screen/console/output window
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+Note that \textbf{i} is incremented in both the afterthought and loop body.
+
+$1 + 3 + 5 + 7 = 16$
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Two} \vspace{4pt}
+
+\begin{java}
+public int g(int v) {
+    if (v>5) {
+        return 0;
+    }
+    if (v<=0) {
+        return Math.abs(v)+g(v+2);
+    }
+    return (v-1)+g(v+1);
+}
+\end{java}
+
+What would be returned by the following calls? g(2), g(0), g(-5)
+
+\begin{onlyenv}<2->
+\textbf{Recursive Desk Check} - Can you do it?
+\end{onlyenv}
+
+\begin{onlyenv}<3->
+\textbf{Hint:} Sometimes you can use your other working to come to a solution quicker
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Two Answers} \vspace{4pt}
+\begin{center}
+\begin{onlyenv}<1>
+\begin{tabular}{ |c|c|c| } 
+\hline
+g(v) & returned & evaluated returned \\
+ \hline
+ g(2) & 1 + g(3) & 1 + 9 = 10 \\ 
+ g(3) & 2 + g(4) & 2 + 7 = 9 \\ 
+ g(4) & 3 + g(5) & 3 + 4 = 7 \\ 
+ g(5) & 4 + g(6) & 4 + 0 = 4 \\ 
+ g(6) & 0 & 0 \\
+ \hline
+\end{tabular}
+\end{onlyenv}
+\begin{onlyenv}<2>
+\begin{tabular}{ |c|c|c| } 
+\hline
+g(v) & returned & evaluated returned \\
+ \hline
+ g(2) & 1 + g(3) & 1 + 9 = 10 \\ 
+ g(3) & 2 + g(4) & 2 + 7 = 9 \\ 
+ g(4) & 3 + g(5) & 3 + 4 = 7 \\ 
+ g(5) & 4 + g(6) & 4 + 0 = 4 \\ 
+ g(6) & 0 & 0 \\ 
+ \hline
+ g(0) & 0 + g(2) & 0 + 10 = 10 \\
+ \hline
+\end{tabular}
+\end{onlyenv}
+\begin{onlyenv}<3>
+\begin{tabular}{ |c|c|c| } 
+\hline
+g(v) & returned & evaluated returned \\
+ \hline
+ g(2) & 1 + g(3) & 1 + 9 = 10 \\ 
+ g(3) & 2 + g(4) & 2 + 7 = 9 \\ 
+ g(4) & 3 + g(5) & 3 + 4 = 7 \\ 
+ g(5) & 4 + g(6) & 4 + 0 = 4 \\ 
+ g(6) & 0 & 0 \\ 
+ \hline
+ g(0) & 0 + g(2) & 0 + 10 = 10 \\
+ \hline
+ g(-5) & 5 + g(-3) & 5 + 14 = 19 \\
+ g(-3) & 3 + g(-1) & 3 + 11 = 14 \\
+ g(-1) & 1 + g(1) & 1 + 10 = 11 \\
+ g(1) & 0 + g(2) & 0 + 10 = 10 \\
+ \hline
+\end{tabular}
+\end{onlyenv}
+\end{center}
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Three} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class V {
+    ...
+    public static double f(int v);
+    ...
+}
+\end{java}
+
+Write a single JUnit4 test method which checks that:
+\begin{itemize}
+\item[$\bullet$] f(2) returns a value greater than 0.
+\item[$\bullet$] f(0) returns 0.5
+\item[$\bullet$] f(-1) throws a NullPointerException
+\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+\textbf{Exam Tips}\\
+
+\begin{itemize}
+
+\item[$\bullet$] You can always assume any common imports have been imported.
+
+\item[$\bullet$] If you are asked to write code fragments, you can assume the class and containing methods are defined.
+
+\item[$\bullet$] If you are asked to write a method, write a whole method.
+
+\item[$\bullet$] If you are asked to write a program, write the whole class including a main method.
+
+\item[$\bullet$] If you believe that you are using types which are ambiguous, put a comment.
+
+\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<3->
+\begin{java}
+@Test
+public void test() {
+    Assert.assertTrue(V.f(2)>0); // remember f is static
+    Assert.assertEquals(0.5, V.f(0), 0.001);
+    try {
+        f(-1);
+        Assert.fail();
+    } catch (NullPointerException ex) {
+        
+    }
+}
+\end{java}
+
+\end{onlyenv}
+\begin{onlyenv}<4>
+Possible Assumptions:
+\begin{itemize}
+\item static import of f from V i.e. \texttt{import static V.f;}
+\item static import of Assert.* i.e. \texttt{import static Assert.*;}
+\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+Notes:
+\begin{itemize}
+\item assertEquals(0.5, V.f(0)) is not correct. 
+\item Catching a broader exception than you need also not correct.
+\end{itemize}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Four} \vspace{4pt}
+
+\begin{onlyenv}<1>
+%\begin{javaxs}
+%public class Bag {
+%    /**
+%    * Create an empty Bag
+%    */
+%    public Bag();
+%    /**
+%    * @param num number to search for
+%    * @return number of times num appears in the Bag (0 if not present).
+%    */
+%    public int getCount(int num);
+%    /**
+%    * @param num number to add to Bag
+%    */
+%    public void add(int num);
+%    /**
+%    * @param num number to remove (If present multiple times, only remove one instance)
+%    */
+%    public void remove(int num);
+%    /**
+%    * @return a String containing comma separated value:times pairs (where ‘‘times’’ is %the number of times the value occurs in the Bag.
+%    * for example: "1:1,5:1,3:7"
+%    */
+%    @Override
+%    public String toString();
+%}
+%\end{javaxs}
+\end{onlyenv}
+
+
+\begin{onlyenv}<2>
+
+A Bag is an unordered collection of ints where each value can appear multiple times.
+For example a bag could contain 1, 5 and seven 3s.
+\begin{itemize}
+\item[A)] What member variables would you need to add to the class?
+\item[B)] Implement the constructor.
+\item[C)] Implement add
+\item[D)] Implement remove
+\item[E)] Implement getCount
+\end{itemize}
+\end{onlyenv}
+
+\begin{onlyenv}<3->
+\begin{itemize}
+\item[A)] List\onslide<4->{: can add and remove items from the end of the list and loop through counting occurences for getCount}
+
+\item[B)] Set\onslide<5->{: seems like a good idea but the items in the bag can appear multiple times}
+
+\item[C)] Map\onslide<6->{: map values to number of times they appear. Needs filtering to not report on things that were added and then removed}
+\end{itemize}
+\end{onlyenv}
+
+\end{frame}
+
+\end{document}
