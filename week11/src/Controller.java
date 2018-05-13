@@ -42,21 +42,26 @@ public class Controller {
              * 
              * Try to convert them to integers, if you can't then set them to (0,0)
              * */
-            // TODO: code here
-            
+            try {
+                xCoord = Integer.decode(view.getXCoord());
+                yCoord = Integer.decode(view.getYCoord());
+            } catch (NumberFormatException nfe) {
+                xCoord = 0;
+                yCoord = 0;
+            }
 
             /* Draw the shape at the given x and y 
              * use view to draw the shape, view has methods which can do this
              */
-            // TODO: code here
+            view.drawShape(pressedButton.getText(), xCoord, yCoord);
             
             /* Once the information from the text fields is used, clear them so that new ones can be used for next drawing*/
             /* use the view to do this, view has methods you can use */
-            // TODO: code here
+            view.clearFields();
             
             /* Enter the information of the button which was just pressed */
             /* use the view to do this, view has methods you can use to achieve this */
-            //TODO: code here
+            view.setPrevious(pressedButton.getText());
         }
         
     }

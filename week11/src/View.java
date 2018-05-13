@@ -7,10 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.FillRule;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -156,8 +161,8 @@ public class View {
     private void drawRectangle(int x, int y) {
         /* Draw a rectangle at the given x and y coords */
         /* use the canvasContext to draw on it */
-        // TODO: code here
-
+        context.setFill(Paint.valueOf("BLANCHEDALMOND"));
+        context.fillRect(x, y, 50, 50);
     }
 
     /**
@@ -171,8 +176,8 @@ public class View {
     private void drawCircle(int x, int y) {
         /* Draw a circle at the given x and y coords */
         /* use the canvasContext to draw on it */
-        // TODO: code here
-
+        context.setFill(Paint.valueOf("TURQUOISE"));
+        context.fillArc(x, y, 50, 50, 0, 360, ArcType.ROUND);
     }
 
     /**
@@ -190,7 +195,10 @@ public class View {
     private void drawTriangle(int x, int y) {
         /* Draw a triangle at the given x and y coords */
         /* use the canvasContext to draw on it */
-        // TODO: code here
+        double[] xs = {x, x+50, x+100};
+        double[] ys = {y, y-50, y};
+        context.setFill(Paint.valueOf("DARKORANGE"));
+        context.fillPolygon(xs, ys, 3);
 
     }
 
@@ -219,7 +227,8 @@ public class View {
          * Something like this :P
          */
         /* use the canvasContext to draw on it */
-        // TODO: code here
+        drawRectangle(x+25, y);
+        drawTriangle(x, y);
     }
 
     /**
@@ -228,8 +237,10 @@ public class View {
     private void clearCanvas() {
         /* Remove all the shapes drawn on the canvas */
         /* use the canvasContext to draw/clear the canvas */
-        // TODO: code here
-
+        context.clearRect(context.getCanvas().getLayoutX(),
+                context.getCanvas().getLayoutY(),
+                context.getCanvas().getWidth(),
+                context.getCanvas().getHeight());
     }
 
     /**
@@ -240,7 +251,9 @@ public class View {
          * Clear all the TextFields so that users don't always have to clear
          * after entering a command
          */
-        // TODO: code here
+        xInput.clear();
+        yInput.clear();
+        previous.clear();
 
     }
 
@@ -257,7 +270,7 @@ public class View {
         leftBox.setStyle("-fx-background-color: white");
         
         /* add all the leftside components to this leftBox */
-        //TODO: code here
+        addLeftSideComponents(leftBox);
         
         
         /* Another layout node for the left side of the GUI */
@@ -269,11 +282,12 @@ public class View {
         rightBox.setStyle("-fx-background-color: #336699");
         
         /* add all the right side components to this rightBox */
-        //TODO: code here
+        addRightSideComponents(rightBox);
 
 
         /* add both layouts to the root HBox layout */
-        // TODO: code here
+        rootBox.getChildren().add(leftBox);
+        rootBox.getChildren().add(rightBox);
 
     }
 
@@ -317,8 +331,10 @@ public class View {
          * The HBox inputBox is already created for you to add the 2 labels and 2 textFields in
          * Make sure you add them to this HBox in the correct order
          */
-         // TODO: code here
-
+        Label xcordLabel = new Label("X-Coord");
+        xInput = new TextField();
+        Label ycordLabel = new Label("Y-Coord");
+        yInput = new TextField();
 
         /*
          * Add another textField to the VBox to display previous drawn command
@@ -326,15 +342,19 @@ public class View {
          * set the prompt as "Previously entered command"
          * and make sure the users are not able to edit that field.
          */
-        // TODO: code here
-        
+        previous = new TextField();
+        previous.setPromptText("Previously entered command");
+        previous.setEditable(false);
         
         /*
          * add everything to the left VBox (which is passed as argument),
          * add the canvasContaner, the box(inputBox) containing all the TextFields and the
          * TextField which records the previous command
          */
-        // TODO: code here
+        inputBox.getChildren().add(xcordLabel);
+        inputBox.getChildren().add(xInput);
+        inputBox.getChildren().add(ycordLabel);
+        inputBox.getChildren().add(yInput);
         box.getChildren().addAll(canvasContainer, inputBox, previous);
 
     }
@@ -378,8 +398,19 @@ public class View {
         
         // you can set a preferred size for all the button if you want
         
-        //TODO: code here
-        
+        buttons[0] = new Button("Rectangle");
+        buttons[1] = new Button("Circle");
+        buttons[2] = new Button("Triangle");
+        buttons[3] = new Button("House");
+        buttons[4] = new Button("Clear");
+
+        for (Button button : buttons) {
+            VBox.setVgrow(button, Priority.ALWAYS);
+            button.setMaxWidth(Double.MAX_VALUE);
+        }
+
+        box.getChildren().addAll(buttons);
+
     }
 
 }

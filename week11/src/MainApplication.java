@@ -27,7 +27,7 @@ public class MainApplication extends Application {
         /* Create a new controller 
          * Do this after all the code in View has been finished
          */
-        //TODO: code here
+        Controller controller = new Controller(view);
         
         primaryStage.setScene(view.getScene());
         primaryStage.show();        
