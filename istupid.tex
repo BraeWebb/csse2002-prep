@@ -1,0 +1,241 @@
+\input{shared}
+
+\title{Week 11 Tutorial}
+\author{Brae}
+\institute {CSSE2002: Programming in the Large}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}[t, fragile]{This Week} \vspace{4pt}
+This week we will be working on questions from the \texttt{2017 Semester Two Final Exam Paper}.\\[20pt]
+\begin{enumerate}
+	\item[1.] Go to the UQ Library Website (library.uq.edu.au)
+	\item[2.] Select \texttt{Past exam papers} from the search dropdown
+	\item[3.] Enter \texttt{CSSE2002} into the search field
+	\item[4.] Select \texttt{2017 Sem 2}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t, fragile]{Question One} \vspace{4pt}
+
+The code below compiles and works correctly, but has several stylistic errors. Fix the code. Do not write comments.
+
+\begin{onlyenv}<1>
+
+\begin{java}
+public class aclass {
+public static int M(int N) {
+	int x = 0;
+		for(int i = 1;
+		i<N;i=i+1)if
+(N%i==0)x=x+1;return x;
+}}
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+
+\textbf{Camel Case Naming}
+
+\begin{java}
+public class aClass {
+public static int m(int n) {
+	int x = 0;
+		for(int i = 1;
+		i<n;i=i+1)if
+(n%i==0)x=x+1;return x;
+}}
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+
+\textbf{Indentation}
+
+\begin{java}
+public class aClass {
+	public static int m(int n) {
+		int x = 0;
+		for(int i = 1;i<n;i=i+1)
+			if(n%i==0)x=x+1;return x;
+}}
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<4>
+
+\textbf{Oneline Java Code}
+
+\begin{java}
+public class aClass {
+	public static int m(int n) {
+		int x = 0;
+		for(int i = 1;i<n;i=i+1) {
+			if(n%i==0) {
+				x=x+1;
+				return x;
+			}
+		}
+	}
+}
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+
+\textbf{Horizontal Whitespace}
+
+\begin{java}
+public class aClass {
+	public static int m(int n) {
+		int x = 0;
+		for (int i = 1; i < n; i = i + 1) {
+			if (n % i == 0) {
+				x = x + 1;
+				return x;
+			}
+		}
+	}
+}
+\end{java}
+
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Two} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class Person {
+	private String name;
+	public Person(String n) { name = n; }
+	public String getName() { return name; }
+	public void setName(String n) { name = n ; }
+}
+\end{java}
+The class invariant for this class is indented to be that only legal characters are used in a person’s name, as defined by the \texttt{legalNameCharacter} method below.
+
+\begin{java}
+public static boolean legalNameCharacter(char c) {
+	return "a" <= c && c <= "z" k ||
+		   "A" <= c && c <= "Z" k ||
+		   c == "-" k || c == " ";
+}
+\end{java}
+
+Add a JavaDoc comment which describes the invariant.
+\end{onlyenv}
+
+\begin{onlyenv}<2->
+\begin{java}
+/**
+  * invariant: 
+  * (*@
+$
+\forall x \in \mathbb{Z} | (\,x \leq 0 \land x < name.length)\, \Rightarrow legalNameCharacter(name[x])
+$ @*)
+  */
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<3->
+\begin{java}
+/**
+  * invariant: \forall char c; (name.contains(c)) 
+  *                   ==> legalNameCharacter(c);
+  */
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<4->
+\begin{java}
+/**
+  * invariant: for every character, c, in name, 
+  *	       legalNameCharacter(c) returns true
+  */
+\end{java}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Three} \vspace{4pt}
+
+\begin{java}
+boolean isPrime(int n) { ... }
+
+/** @require n > 0
+  * @ensure \result is the number of primes between 2 and n inclusive
+  */
+int countPrimes(int n) {
+	int count = 0;
+	while (n >= 2) {
+		if (isPrime(n))
+			count = count + 1;
+		n = n - 1;
+	}
+	return count;
+}
+\end{java}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Four} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class A {
+	public int m()
+	public int m(int x, int y)
+}
+
+public class B extends A {
+	public int m(double x, double y)
+}
+
+public class C extends B {
+	public int m()
+	public int m(int x, double y)
+}
+\end{java}
+
+\begin{itemize}
+	\begin{columns}[onlytextwidth]
+	\column{0.3\textwidth}
+	\item[1.] b.m();
+	\item[2.] c.m(1, 2.1);
+
+	\column{0.3\textwidth}
+	\item[3.] b.m(1, 2.1);
+	\item[4.] b.m(1, 2);
+
+	\column{0.3\textwidth}
+	\item[5.] c.m(1.1, 2.1);
+	\item[6.] c.m(1, 2);
+	\end{columns}
+\end{itemize}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+\begin{itemize}
+	\item[1.] A.m()
+	\item[2.] B.m(double, double)
+	\item[3.] B.m(double, double)
+	\item[4.] A.m(int, int)
+	\item[5.] B.m(double, double)
+	\item[6.] A.m(int, int)
+\end{itemize}
+\end{onlyenv}
+
+\end{frame}
+
+\end{document}
