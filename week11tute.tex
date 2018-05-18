@@ -136,10 +136,7 @@ public class IllegalNameException extends Exception { }
 public class Person {
 	private String name;
 	public Person(String n) { 
-		if (!isValidName(n)) {
-			throw new IllegalNameException();
-		}
-		name = n;
+		setName(n);
 	}
 	public String getName() {
 		return name;
@@ -151,7 +148,7 @@ public class Person {
 		name = n ;
 	}
 	private boolean isValidName(String name) {
-		for (char letter : name) {
+		for (char letter : name.toCharArray()) {
 			if (!legalNameCharacter(letter)) {
 				return false;
 			}
@@ -165,7 +162,7 @@ public class Person {
 \begin{onlyenv}<3>
 \begin{java}
 	private boolean isValidName(String name) {
-		for (char letter : name) {
+		for (char letter : name.toCharArray()) {
 			if (!legalNameCharacter(letter)) {
 				return false;
 			}
@@ -216,6 +213,12 @@ public class C extends B {
 \end{onlyenv}
 
 \begin{onlyenv}<2>
+The second call is tricky. You might find the below description useful.\\
+
+When a method is invoked (§15.12), the number of actual arguments (and any explicit type arguments) and the compile-time types of the arguments are used, at compile time, to determine the signature of the method that will be invoked (§15.12.2). If the method that is to be invoked is an instance method, the actual method to be invoked will be determined at run time, using dynamic method lookup (§15.12.4).
+\end{onlyenv}
+
+\begin{onlyenv}<3>
 \begin{itemize}
 	\item[1.] A.m()
 	\item[2.] B.m(double, double)
