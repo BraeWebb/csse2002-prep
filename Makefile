@@ -1,19 +1,37 @@
+TMP := tmp/
+OUTPUT_TUTE := tutorials/
+OUTPUT_PRAC := practicals/
+TUTES := $(wildcard ./week*tute.tex)
+PRACS := $(wildcard ./week*prac.tex)
+
 TEX=pdflatex
-FLAGS=-shell-escape -interaction=nonstopmode -file-line-error -output-directory=out/
+FLAGS=-shell-escape -interaction=batchmode -file-line-error
 
-all: ass2preview ass1review week10tute week11prac week11tute
+all: $(TUTES) $(PRACS)
+	make tutes
+	make pracs
 
-ass2preview: ass2preview.tex
-	$(TEX) $(FLAGS) ass2preview.tex
+tutes: $(TUTES)
+	@for week in $(TUTES); do \
+		make tute WEEK=$${week}; \
+	done
 
-ass1review: ass1review.tex
-	$(TEX) $(FLAGS) ass1review.tex 
+pracs: $(PRACS)
+	@for week in $(PRACS); do \
+		make prac WEEK=$${week}; \
+	done
 
-week10tute: week10tute.tex
-	$(TEX) $(FLAGS) week10tute.tex
+tute: csse2002.cls $(WEEK)
+	mkdir -p $(TMP)
+	mkdir -p $(OUTPUT_TUTE)
+	$(TEX) $(FLAGS) -output-directory=$(TMP) $(WEEK)
+	mv $(TMP)*.pdf $(OUTPUT_TUTE)
+	rm -r $(TMP)
 
-week11prac: week11prac.tex
-	$(TEX) $(FLAGS) week11prac.tex
+prac: csse2002.cls $(WEEK)
+	mkdir -p $(TMP)
+	mkdir -p $(OUTPUT_PRAC)
+	$(TEX) $(FLAGS) -output-directory=$(TMP) $(WEEK)
+	mv $(TMP)*.pdf $(OUTPUT_PRAC)
+	rm -r $(TMP)
 
-week11tute: week11tute.tex
-	$(TEX) $(FLAGS) week11tute.tex
