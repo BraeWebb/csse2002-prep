@@ -1,0 +1,234 @@
+\input{shared}
+
+\title{Week 12 Tutorial}
+\author{Brae}
+\institute {CSSE2002: Programming in the Large}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}[t, fragile]{This Week} \vspace{4pt}
+This week we will be working on questions from the \texttt{2017 Semester Two Final Exam Paper}.\\[20pt]
+\begin{enumerate}
+	\item[1.] Go to the UQ Library Website (library.uq.edu.au)
+	\item[2.] Select \texttt{Past exam papers} from the search dropdown
+	\item[3.] Enter \texttt{CSSE2002} into the search field
+	\item[4.] Select \texttt{2017 Sem 2}
+\end{enumerate}
+
+Exclude the following questions:
+\begin{enumerate}
+	\item[1.] 1b
+	\item[2.] 2a
+	\item[3.] 3
+	\item[4.] 4b
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t, fragile]{Question One} \vspace{4pt}
+
+\begin{onlyenv}<1,2>
+Make the below a declaration of a constant:
+
+\begin{java}
+int maximum = 100;
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+
+\begin{java}
+static final int MAXIMUM = 100;
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<1,3,4>
+What is printed out by this program?
+
+\begin{java}
+public static void absArray(int [ ] a) {
+	for (int i = 0; i < a.length; i++)
+		if (a[i] < 0)
+			a[i] = -1 * a[i];
+	}
+public static void main(String [ ] args) {
+	int [ ] values = {1, 3, -2, 0, -10, 9};
+	absArray(values);
+	for (int i = 0; i < values.length; i++)
+		System.out.println("values[" + i + "] = " + values[i]);
+}
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<4>
+values[0] = 1
+values[1] = 3
+values[2] = 2
+values[3] = 0
+values[4] = 10
+values[5] = 9
+\end{onlyenv}
+
+\begin{onlyenv}<5>
+\begin{java}
+public static void r(int[] a) {
+	int[] b = a;
+	r(b, 0, b.length - 1);
+}
+public static void r(int[] a, int i, int j) {
+	if (i <= j) {
+		int tmp = a[i];
+		a[i] = a[j];
+		a[j] = tmp;
+		r(a, i + 1, j - 1);
+	}
+}
+public static void main(String[] args) {
+	int[] values = {1, 3, -2, 0, -10, 9};
+	r(values);
+	for (int i = 0; i < values.length; i++)
+		System.out.println("values[" + i + "] = " + values[i]);
+}
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<6>
+values[0] = 9\\
+values[1] = -10\\
+values[2] = 0\\
+values[3] = -2\\
+values[4] = 3\\
+values[5] = 1
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Two} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class Person {
+	private String name;
+	public Person(String n) { name = n; }
+	public String getName() { return name; }
+	public void setName(String n) { name = n ; }
+}
+\end{java}
+The class invariant for this class is indented to be that only legal characters are used in a person’s name, as defined by the \texttt{legalNameCharacter} method below.
+
+\begin{java}
+public static boolean legalNameCharacter(char c) {
+	return "a" <= c && c <= "z" k ||
+		   "A" <= c && c <= "Z" k ||
+		   c == "-" k || c == " ";
+}
+public class IllegalNameException extends Exception { }
+\end{java}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+\begin{java}
+public class Person {
+	private String name;
+	public Person(String n) { 
+		setName(n);
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String n) {
+		if (!isValidName(n)) {
+			throw new IllegalNameException();
+		}
+		name = n ;
+	}
+	private boolean isValidName(String name) {
+		for (char letter : name.toCharArray()) {
+			if (!legalNameCharacter(letter)) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+\end{java}
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+\begin{java}
+	private boolean isValidName(String name) {
+		for (char letter : name.toCharArray()) {
+			if (!legalNameCharacter(letter)) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+\end{java}
+\end{onlyenv}
+
+\end{frame}
+
+\begin{frame}[t, fragile]{Question Four} \vspace{4pt}
+
+\begin{onlyenv}<1>
+\begin{java}
+public class A {
+	public int m()
+	public int m(int x, int y)
+}
+
+public class B extends A {
+	public int m(double x, double y)
+}
+
+public class C extends B {
+	public int m()
+	public int m(int x, double y)
+}
+\end{java}
+
+\begin{itemize}
+	\begin{columns}[onlytextwidth]
+	\column{0.3\textwidth}
+	\item[1.] b.m();
+	\item[2.] c.m(1, 2.1);
+
+	\column{0.3\textwidth}
+	\item[3.] b.m(1, 2.1);
+	\item[4.] b.m(1, 2);
+
+	\column{0.3\textwidth}
+	\item[5.] c.m(1.1, 2.1);
+	\item[6.] c.m(1, 2);
+	\end{columns}
+\end{itemize}
+
+\end{onlyenv}
+
+\begin{onlyenv}<2>
+The second call is tricky. You might find the below description useful.\\
+
+When a method is invoked (§15.12), the number of actual arguments (and any explicit type arguments) and the compile-time types of the arguments are used, at compile time, to determine the signature of the method that will be invoked (§15.12.2). If the method that is to be invoked is an instance method, the actual method to be invoked will be determined at run time, using dynamic method lookup (§15.12.4).
+\end{onlyenv}
+
+\begin{onlyenv}<3>
+\begin{itemize}
+	\item[1.] A.m()
+	\item[2.] B.m(double, double)
+	\item[3.] B.m(double, double)
+	\item[4.] A.m(int, int)
+	\item[5.] B.m(double, double)
+	\item[6.] A.m(int, int)
+\end{itemize}
+\end{onlyenv}
+
+\end{frame}
+
+\end{document}
