@@ -237,3 +237,9 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+# output folders
+tutorials/
+practicals/
+out/
+
