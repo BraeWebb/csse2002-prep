@@ -20,7 +20,7 @@
 \usecolortheme[named=mygreen]{structure}
 \setbeamercovered{transparent=5}
 
-\setlist[itemize]{label=\bullet}
+\setlist[itemize]{label=$\bullet$}
 \setlist[enumerate]{label=\arabic*.}
 
 \newenvironment{topic}[1]
