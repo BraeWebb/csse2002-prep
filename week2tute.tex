@@ -30,27 +30,27 @@ Piazza is better 9 times out of 10
 What should I expect from this course?
 
 \begin{itemize}
-	\begin{subtopic}{2-}
-	\item To learn the basics of java
-	\end{subtopic}
-	\begin{subtopic}{3-}
-	\item To learn some ways to ease complexity of large projects, including:
-	\end{subtopic}
-	\begin{subtopic}{3-}
-	\item documentation and program specifications
-	\end{subtopic}
-	\begin{subtopic}{4-}
-	\item inheritance and programming patterns
-	\end{subtopic}
-	\begin{subtopic}{5-}
-	\item debugging programs
-	\end{subtopic}
-	\begin{subtopic}{6-}
-	\item testing your programs to ensure they are correct
-	\end{subtopic}
-	\begin{subtopic}{7-}
-	\item Three interconnected assignments coded in java
-	\end{subtopic}
+    \begin{subtopic}{2-}
+    \item To learn the basics of java
+    \end{subtopic}
+    \begin{subtopic}{3-}
+    \item To learn some ways to ease complexity of large projects, including:
+    \end{subtopic}
+    \begin{subtopic}{3-}
+    \item documentation and program specifications
+    \end{subtopic}
+    \begin{subtopic}{4-}
+    \item inheritance and programming patterns
+    \end{subtopic}
+    \begin{subtopic}{5-}
+    \item debugging programs
+    \end{subtopic}
+    \begin{subtopic}{6-}
+    \item testing your programs to ensure they are correct
+    \end{subtopic}
+    \begin{subtopic}{7-}
+    \item Three interconnected assignments coded in java
+    \end{subtopic}
 \end{itemize}
 
 \begin{subtopic}{3}
@@ -113,33 +113,33 @@ The entry point for java programs is the main method, when a file is run the cod
 \begin{subtopic}{1-4}
 Implement \texttt{String num(int x)}: which for $0 < x < 10$ returns the name of the number, otherwise returns "??".
 \begin{itemize}
-	\item Use a switch statement
-	\item Use an array of Strings.
+    \item Use a switch statement
+    \item Use an array of Strings.
 \end{itemize}
 \end{subtopic}
 
 \begin{subtopic}{1,5,6}
 The Fibbonacci sequence is defined as 1, 1, 2, . . . with F(n) = F(n - 1) + F(n - 2).
 \begin{enumerate}
-	\item Compute some more terms of the sequence to use for testing.
-	\item Write int Fib(n)
-	\item “Desk check” your Implementation.
+    \item Compute some more terms of the sequence to use for testing.
+    \item Write int Fib(n)
+    \item “Desk check” your Implementation.
 \end{enumerate}
 \end{subtopic}
 
 \begin{subtopic}{2}
 \begin{java}
 public static String num(int x) {
-	String result;
-	switch (x) {
-		case 1:
-			result = "One";
-			break;
-		...
-		default:
-			result = "??";
-	}
-	return result;
+    String result;
+    switch (x) {
+        case 1:
+            result = "One";
+            break;
+        ...
+        default:
+            result = "??";
+    }
+    return result;
 }
 \end{java}
 \end{subtopic}
@@ -147,15 +147,15 @@ public static String num(int x) {
 \begin{subtopic}{3}
 \begin{java}
 public static String num(int x) {
-	switch (x) {
-		case 1:
-			return "One";
-		case 2:
-			return "Two";
-		...
-		default:
-			return "??";
-	}
+    switch (x) {
+        case 1:
+            return "One";
+        case 2:
+            return "Two";
+        ...
+        default:
+            return "??";
+    }
 }
 \end{java}
 \end{subtopic}
@@ -163,11 +163,11 @@ public static String num(int x) {
 \begin{subtopic}{4}
 \begin{java}
 public static String num(int x) {
-	String[] numbers = {"One", "Two", "Three", ..};
-	if (x > 0 && x < 10) {
-		return numbers[x + 1];
-	}
-	return "??";
+    String[] numbers = {"One", "Two", "Three", ..};
+    if (x > 0 && x < 10) {
+        return numbers[x + 1];
+    }
+    return "??";
 }
 \end{java}
 \end{subtopic}
@@ -179,10 +179,10 @@ public static String num(int x) {
 \begin{subtopic}{6}
 \begin{java}
 public static int Fib(int n) {
-	if (n < 2) {
-		return 1;
-	}
-	return Fib(n - 1) + Fib(n - 2);
+    if (n < 2) {
+        return 1;
+    }
+    return Fib(n - 1) + Fib(n - 2);
 }
 \end{java}
 \end{subtopic}
