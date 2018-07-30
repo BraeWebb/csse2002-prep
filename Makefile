@@ -1,4 +1,3 @@
-TMP := tmp/
 OUTPUT_TUTE := tutorials/
 OUTPUT_PRAC := practicals/
 TUTES := $(wildcard ./week*tute.tex)
@@ -22,16 +21,10 @@ pracs: $(PRACS)
 	done
 
 tute: csse2002.cls $(WEEK)
-	mkdir -p $(TMP)
 	mkdir -p $(OUTPUT_TUTE)
-	$(TEX) $(FLAGS) -output-directory=$(TMP) $(WEEK)
-	mv $(TMP)*.pdf $(OUTPUT_TUTE)
-	rm -r $(TMP)
+	$(TEX) $(FLAGS) -output-directory=$(OUTPUT_TUTE) $(WEEK)
 
 prac: csse2002.cls $(WEEK)
-	mkdir -p $(TMP)
 	mkdir -p $(OUTPUT_PRAC)
-	$(TEX) $(FLAGS) -output-directory=$(TMP) $(WEEK)
-	mv $(TMP)*.pdf $(OUTPUT_PRAC)
-	rm -r $(TMP)
+	$(TEX) $(FLAGS) -output-directory=$(OUTPUT_PRAC) $(WEEK)
 
