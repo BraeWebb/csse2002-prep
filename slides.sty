@@ -1,0 +1,78 @@
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+
+% Slide formatting
+\usepackage{multicol}
+\usepackage{enumitem}
+
+% theme from https://kbroman.org/blog/2013/10/07/better-looking-latexbeamer-slides/
+% TODO: cite above
+\setbeameroption{hide notes}
+\setbeamertemplate{note page}[plain]
+
+% get rid of junk
+\usetheme{default}
+% removes the navigation from the bottom
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfpagemode=UseNone}
+
+% named colors
+\definecolor{offwhite}{RGB}{249,242,215}
+\definecolor{foreground}{RGB}{255,255,255}
+\definecolor{background}{RGB}{24,24,24}
+\definecolor{title}{RGB}{107,174,214}
+\definecolor{gray}{RGB}{155,155,155}
+\definecolor{subtitle}{RGB}{102,255,204}
+\definecolor{hilight}{RGB}{102,255,204}
+\definecolor{vhilight}{RGB}{255,111,207}
+\definecolor{lolight}{RGB}{155,155,155}
+\definecolor{lightblack}{RGB}{40,40,40}
+\definecolor{darklightblack}{RGB}{30,30,30}
+
+% use those colors
+\setbeamercolor{titlelike}{fg=title}
+\setbeamercolor{subtitle}{fg=subtitle}
+\setbeamercolor{institute}{fg=gray}
+\setbeamercolor{normal text}{fg=foreground,bg=background}
+% bibliography styling
+\setbeamercolor{bibliography item}{fg=foreground}
+\setbeamercolor{bibliography entry author}{fg=foreground}
+\setbeamercolor{bibliography entry title}{fg=foreground}
+\setbeamercolor{bibliography entry note}{fg=foreground}
+\setbeamertemplate{bibliography item}{}
+% block styling
+\setbeamercolor{block title}{fg=subtitle,bg=darklightblack}
+\setbeamercolor{block body}{bg=lightblack}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\setbeamercolor{item}{fg=foreground}
+\setbeamercolor{subitem}{fg=gray}
+\setbeamercolor{itemize/enumerate subbody}{fg=gray}
+\setbeamertemplate{itemize subitem}{{\textendash}}
+\setbeamerfont{itemize/enumerate subbody}{size=\footnotesize}
+\setbeamerfont{itemize/enumerate subitem}{size=\footnotesize}
+
+% page number
+\setbeamertemplate{footline}{%
+    \includegraphics[width=30pt,right]{honey}
+	
+	\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[20pt]{\color{gray}
+          \scriptsize\insertframenumber}}}\hspace*{5pt}}
+    
+
+% add a bit of space at the top of the notes page
+\addtobeamertemplate{note page}{\setlength{\parskip}{12pt}}
+
+\setlist[itemize]{label=\bullet}
+\setlist[enumerate]{label=\arabic*.}
+
+\newenvironment{topic}[1]
+    {\begin{frame}[t,fragile,environment=topic]{#1}}
+    {\end{frame}}
+
+\newenvironment{subtopic}[1]
+    {\begin{onlyenv}<#1>}
+    {\end{onlyenv}}
+
+% BibTex Style
+\bibliographystyle{ieeetr}
