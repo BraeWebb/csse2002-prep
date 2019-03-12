@@ -10,6 +10,10 @@ all: $(TUTES) $(PRACS)
 	make tutes
 	make pracs
 
+clean:
+	rm -rf $(OUTPUT_TUTE)
+	rm -rf $(OUTPUT_PRAC)
+
 tutes: $(TUTES)
 	@for week in $(TUTES); do \
 		make tute WEEK=$${week}; \
