@@ -1,0 +1,228 @@
+\documentclass[week4]{csse2002}
+\usepackage{slides}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\author{Brae Webb}
+
+\title{CSSE2002 Week 4 Tutorial}
+ 
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{topic}{Admin}
+\begin{enumerate}
+    \item Opportunity
+    \item Assignment Released
+\end{enumerate}
+\end{topic}
+
+\begin{topic}{This Week...}
+\begin{enumerate}
+    \item Making Exceptions (hint hint, assignment)
+    \item Throwing \& Catching Exceptions
+    \item Overriding Object Methods
+    \begin{enumerate}
+    	\item equals
+    	\item hashCode
+    \end{enumerate}
+    \item Implementing the Comparable Interface
+\end{enumerate}
+\end{topic}
+
+\section{Exceptions}
+
+\begin{topic}{Making Exceptions}
+{\small Read: the easiest thing you'll ever do in this course}
+
+\begin{java}
+public class CustomException extends Exception {}
+\end{java}
+
+\begin{subtopic}{2}
+\begin{java}
+public class HelloWorld {
+	public static void main(String[] args) throws CustomException {
+		throw new CustomException();
+	}
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{3-}
+What if I want to add a message?
+\end{subtopic}
+
+\begin{subtopic}{4-}
+\begin{java}
+public class CustomException extends Exception {
+	public CustomException() {
+		super();
+	}
+
+	public CustomException(String message) {
+		super(message);
+	}
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{5-}
+\begin{java}
+public class HelloWorld {
+	public static void main(String[] args) throws CustomException {
+		throw new CustomException("you done messed up a-a-ron");
+	}
+}
+\end{java}
+\end{subtopic}
+\end{topic}
+
+\begin{topic}{Runtime Exception?}
+Runtime exceptions are used for errors that can be prevented
+programmatically.
+
+Examples: 
+\begin{itemize}
+	\item \textbf{NullPointerException}
+	\item \textbf{ArrayIndexOutOfBoundException}
+\end{itemize}
+
+\begin{subtopic}{2-}
+How do I make a runtime exception?
+\end{subtopic}
+
+\begin{subtopic}{3-}
+\begin{java}
+public class CustomRuntimeException extends RuntimeException {}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{4-}
+What makes runtime exceptions special?
+\end{subtopic}
+\end{topic}
+
+\begin{topic}{Finally, finally}
+Finally is \highlight{always} executed. (exceptional cases: crashes, exiting the program or infinite loops)
+
+\begin{java}
+public int example() {
+	try {
+	    return 20;
+    } finally {
+        System.out.println("always");
+    }
+}
+\end{java}
+
+Why is finally useful?
+\end{topic}
+
+\section{Overriding Object Methods}
+\begin{topic}{Overriding Object Methods}
+The java \textbf{Object} class (which all classes extend) has a few
+methods. Sometimes we find it useful to override these methods.
+
+By default, java doesn't know much about our classes.
+
+Today we'll be looking at:
+\begin{itemize}
+	\item boolean equals(Object object)
+	\item int hashCode()
+\end{itemize}
+\end{topic}
+
+\begin{topic}{.equals}
+Java doesn't know how to compare two instances of a class.
+
+\begin{subtopic}{1}
+\begin{java}
+public class Point {
+	public int x;
+	public int y;
+
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{2}
+\begin{java}
+public class Point {
+	public int x;
+	public int y;
+
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public static void main(String[] args) {
+		Point point1 = new Point(3, 10);
+		Point point2 = new Point(3, 10);
+		System.out.println(point1.equals(point2)); // false
+	}
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{3}
+\begin{java}
+public boolean equals(Object o) {
+	if (!(o instanceof Point)) {
+		return false;
+	}
+	Point other = (Point) o;
+
+	return this.x == other.x && this.y = other.y;
+}
+\end{java}
+\end{subtopic}
+\end{topic}
+
+\begin{topic}{.hashCode}
+Only requirement for this course: if two objects are equal, their
+hashcode has to be equal
+
+\begin{subtopic}{2-}
+\begin{java}
+public int hashCode() {
+    return this.x * this.y;
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{3-}
+\begin{java}
+public int hashCode() {
+    int hash = 7;
+    hash = 31 * hash + this.x;
+    hash = 31 * hash + this.y;
+    return hash;
+}
+\end{java}
+\end{subtopic}
+\end{topic}
+
+\begin{topic}{.compareTo}
+If an object implements the Comparable interface, it needs to have a
+compareTo method.
+
+If both the strings are \highlight{equal} then this method returns \highlight{0}.
+
+If the current instance is \highlight{greater}, it returns \highlight{positive}.
+
+If the current instance is \highlight{lesser}, it returns \highlight{negative}.
+
+What does it mean to be greater than or lesser than? Up to you!
+\end{topic}
+
+\end{document} 

@@ -54,8 +54,6 @@
 
 % page number
 \setbeamertemplate{footline}{%
-    \includegraphics[width=30pt,right]{honey}
-	
 	\raisebox{5pt}{\makebox[\paperwidth]{\hfill\makebox[20pt]{\color{gray}
           \scriptsize\insertframenumber}}}\hspace*{5pt}}
     
@@ -63,9 +61,11 @@
 % add a bit of space at the top of the notes page
 \addtobeamertemplate{note page}{\setlength{\parskip}{12pt}}
 
+% fix beamer listing issues
 \setlist[itemize]{label=\bullet}
 \setlist[enumerate]{label=\arabic*.}
 
+% custom slide environments
 \newenvironment{topic}[1]
     {\begin{frame}[t,fragile,environment=topic]{#1}}
     {\end{frame}}
@@ -73,6 +73,22 @@
 \newenvironment{subtopic}[1]
     {\begin{onlyenv}<#1>}
     {\end{onlyenv}}
+
+% section slides
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+% emphasize text
+\definecolor{awesome}{rgb}{1.0, 0.13, 0.32}
+\newcommand{\highlight}[1]{\textcolor{awesome}{#1}}
 
 % BibTex Style
 \bibliographystyle{ieeetr}
