@@ -4,7 +4,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 
-\author{Brae Webb}
+\author{Brae Webb \& James Stuart}
 
 \title{CSSE2002 Week 4 Tutorial}
  
@@ -16,8 +16,8 @@
 
 \begin{topic}{Admin}
 \begin{enumerate}
-    \item Opportunity
-    \item Assignment Released
+    \item Opportunity (SVN feedback)
+    \item Assignment 1 Released
 \end{enumerate}
 \end{topic}
 
@@ -38,7 +38,9 @@
 
 \begin{topic}{Making Exceptions}
 {\small Read: the easiest thing you'll ever do in this course}
-
+\begin{subtopic}{1}
+When something goes wrong, we throw an exception. Preferably a specific exception that somewhat explains what went wrong. 
+\end{subtopic}
 \begin{java}
 public class CustomException extends Exception {}
 \end{java}
@@ -82,6 +84,42 @@ public class HelloWorld {
 \end{subtopic}
 \end{topic}
 
+\begin{topic}{try, catch}
+Whenever we want to perform some action that might go wrong (throw an exception), we want to \highlight{try} to perform these action(s), and \highlight{catch} any exception that gets thrown. 
+\begin{subtopic}{1}
+\begin{java}
+try {
+	// do some things
+} catch (CustomException  e) {
+	// We caught an exception!
+}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{2}
+\begin{java}
+try {
+	// do some things
+} catch (CustomException  e) {
+	// We caught an exception!
+} catch (Exception e) {
+	// We will catch all the (other) exceptions!
+}
+\end{java}
+\end{subtopic}
+
+\begin{itemize}
+\item The \texttt{try} block stops executing when an exception is thrown. It doesn't continue. 
+\item The \texttt{catch} block is like an \texttt{if} statement, checking if an exception thrown can be turned into a variable of type \highlight{CustomException} called \highlight{e}.
+\begin{subtopic}{2}
+\item  Multiple catch statements are checked in order. 
+\item Remember implicit casting!
+\end{subtopic}
+\end{itemize}
+
+
+\end{topic}
+
 \begin{topic}{Runtime Exception?}
 Runtime exceptions are used for errors that can be prevented
 programmatically.
@@ -112,8 +150,8 @@ Finally is \highlight{always} executed. (exceptional cases: crashes, exiting the
 
 \begin{java}
 public int example() {
-	try {
-	    return 20;
+    try {
+        return 20;
     } finally {
         System.out.println("always");
     }
@@ -121,6 +159,10 @@ public int example() {
 \end{java}
 
 Why is finally useful?
+\end{topic}
+
+\begin{topic}{Exception: Exercises}
+	Let's have some practice!
 \end{topic}
 
 \section{Overriding Object Methods}
@@ -134,6 +176,7 @@ Today we'll be looking at:
 \begin{itemize}
 	\item boolean equals(Object object)
 	\item int hashCode()
+	\item int compareTo(Object object)
 \end{itemize}
 \end{topic}
 
@@ -216,11 +259,15 @@ public int hashCode() {
 If an object implements the Comparable interface, it needs to have a
 compareTo method.
 
-If both the strings are \highlight{equal} then this method returns \highlight{0}.
+\begin{java}
+public int compareTo(MyClass other)
+\end{java}
 
-If the current instance is \highlight{greater}, it returns \highlight{positive}.
+If the current instance (\texttt{this}) is \highlight{equal} to the \texttt{other}, then this method returns \highlight{0}.
 
-If the current instance is \highlight{lesser}, it returns \highlight{negative}.
+If the current instance is \highlight{greater} than \texttt{other}, it returns \highlight{positive}.
+
+If the current instance is \highlight{lesser} than \texttt{other}, it returns \highlight{negative}.
 
 What does it mean to be greater than or lesser than? Up to you!
 \end{topic}
