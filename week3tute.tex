@@ -55,9 +55,9 @@ draw,processblue , text=blue , minimum width =0 cm}]
 \end{tikzpicture}
 \end{topic}
 
-\begin{topic}{Motitivation}
-\includegraphics[width=\textwidth,keepaspectratio]{doggo.jpg}
-\end{topic}
+% \begin{topic}{Motitivation}
+% \includegraphics[width=\textwidth,keepaspectratio]{doggo.jpg}
+% \end{topic}
 
 \begin{topic}{Casting}
 \begin{subtopic}{1-}
@@ -86,8 +86,70 @@ Dog harlee = (Dog) animal; // still has to be explicit
 \end{subtopic}
 \end{topic}
 
-\begin{topic}{Discussion \& More Motivation}
-\includegraphics[width=\textwidth,keepaspectratio]{doggo2.jpg}
+\begin{topic}{Poll}
+\begin{subtopic}{1-}
+\begin{java}
+public class Animal {}
+public class Lion extends Animal {}
+public class Dog extends Animal implements Pet {}
+public class Poodle extends Dog {}
+public interface Pet {}
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{2-}
+\begin{java}
+Dog evie = new Dog();
+Animal animal = evie;
+Dog harlee = animal;
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{3-}
+\begin{java}
+Dog evie = new Dog();
+Animal animal = (Animal) evie;
+Lion mufasa = (Lion) animal;
+\end{java}
+\end{subtopic}
+\end{topic}
+
+% \begin{topic}{Discussion \& More Motivation}
+% \includegraphics[width=\textwidth,keepaspectratio]{doggo2.jpg}
+% \end{topic}
+
+\begin{topic}{Runtime vs Compile-time}
+\begin{subtopic}{1-}
+
+Compile-time is what you tell the compiler
+
+Runtime is the actual type
+
+\begin{java}
+Animal animal = new Dog();
+\end{java}
+\end{subtopic}
+
+\begin{subtopic}{2-}
+\texttt{Animal} is the compile-time or static type
+
+\texttt{Dog} is the runtime or dynamic type
+\end{subtopic}
+\end{topic}
+
+\begin{topic}{Method Signature}
+In java the signature of a method is defined as the following:
+\begin{enumerate}
+	\item The method name
+	\item The method parameters (amount, type and order NOT name)
+\end{enumerate}
+
+\begin{java}
+public int add(int x, double y);
+// The method name: add
+// The method parameters: int, double
+// Signature: add(int, double)
+\end{java}
 \end{topic}
 
 \begin{topic}{Method Resolution}
@@ -110,21 +172,6 @@ public class Poodle extends Dog {}
 
 Animal evie = new Poodle();
 evie.eat();
-\end{java}
-\end{topic}
-
-\begin{topic}{Method Signature}
-In java the signature of a method is defined as the following:
-\begin{enumerate}
-	\item The method name
-	\item The method parameters (amount, type and order NOT name)
-\end{enumerate}
-
-\begin{java}
-public int add(int x, double y);
-// The method name: add
-// The method parameters: int, double
-// Signature: add(int, double)
 \end{java}
 \end{topic}
 

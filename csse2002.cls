@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 %\ProvidesClass{csse2002}[CSSE2002 Slides]
  
-\LoadClass[12]{beamer}
+\LoadClass[12,aspectratio=169]{beamer}
 
 % Programming language formatting
 \input{languages}
